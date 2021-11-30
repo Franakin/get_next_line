@@ -1,7 +1,5 @@
 #include <stddef.h>
-#include <string.h>
 #include <stdlib.h>
-#include <stdio.h>
 
 int	nl_position(char *str)
 {
@@ -67,6 +65,8 @@ char	*make_ret(char *static_save)
 	char	*ret;
 	int		split_pos;
 
+	if (!static_save)
+		return (NULL);
 	split_pos = nl_or_end(static_save);
 	ret = (char *)malloc(sizeof(char) * (split_pos + 1));
 	if (!ret)

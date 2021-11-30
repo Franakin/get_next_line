@@ -1,8 +1,6 @@
 #include "get_next_line.h"
-#include <unistd.h>
 #include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include <unistd.h>
 
 char	*to_next_line(char *old_save)
 {
@@ -11,6 +9,8 @@ char	*to_next_line(char *old_save)
 	int		k;
 
 	k = 0;
+	if (!old_save)
+		return (NULL);
 	while (old_save[k] && old_save[k] != '\n')
 		k++;
 	if (old_save[k] == '\n')
@@ -53,7 +53,6 @@ char	*get_next_line(int fd)
 	{
 		free(static_save);
 		static_save = NULL;
-		return (NULL);
 	}
 	ret = make_ret(static_save);
 	static_save = to_next_line(static_save);
