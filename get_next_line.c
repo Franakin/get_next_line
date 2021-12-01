@@ -2,32 +2,14 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-char	*to_next_line(char *old_save)
+char	*check_error(char *static_save, int b_read)
 {
-	char	*new_save;
-	int		i;
-	int		k;
-
-	k = 0;
-	if (!old_save)
-		return (NULL);
-	while (old_save[k] && old_save[k] != '\n')
-		k++;
-	if (old_save[k] == '\n')
-		k++;
-	new_save = (char *)malloc(sizeof(char) * (s_len(&old_save[k]) + 1));
-	if (!new_save)
-		return (NULL);
-	i = 0;
-	while (old_save[k])
+	if (!*static_save || b_read < 0)
 	{
-		new_save[i] = old_save[k];
-		i++;
-		k++;
+		free(static_save);
+		static_save = NULL;
 	}
-	new_save[i] = '\0';
-	free(old_save);
-	return (new_save);
+	return (static_save);
 }
 
 char	*get_next_line(int fd)
@@ -37,24 +19,24 @@ char	*get_next_line(int fd)
 	char		*ret;
 	int			b_read;
 
-	b_read = 1;
+	if (fd < 0 || fd > 1024)
+		return (NULL);
 	if (!static_save)
 	{
 		static_save = (char *)malloc(sizeof(char));
+		if (!static_save)
+			return (NULL);
 		*static_save = '\0';
 	}
+	b_read = 1;
 	while (!nl_position(static_save) && b_read > 0)
 	{
 		b_read = read(fd, buffer, BUFFER_SIZE);
 		buffer[b_read] = '\0';
 		static_save = make_save(static_save, buffer);
 	}
-	if (!*static_save || b_read < 0)
-	{
-		free(static_save);
-		static_save = NULL;
-	}
-	ret = make_ret(static_save);
+	static_save = check_error(static_save, b_read);
+	ret = make_line(static_save);
 	static_save = to_next_line(static_save);
 	return (ret);
 }

@@ -25,16 +25,6 @@ size_t	s_len(char *str)
 	return (i);
 }
 
-int	nl_or_end(char *static_save)
-{
-	int	split_pos;
-
-	split_pos = nl_position(static_save);
-	if (split_pos == 0)
-		split_pos = s_len(static_save);
-	return (split_pos);
-}
-
 char	*make_save(char *save, char *buffer)
 {
 	char	*new_save;
@@ -60,23 +50,53 @@ char	*make_save(char *save, char *buffer)
 	return (new_save);
 }
 
-char	*make_ret(char *static_save)
+char	*make_line(char *static_save)
 {
-	char	*ret;
+	char	*line;
 	int		split_pos;
 
 	if (!static_save)
 		return (NULL);
-	split_pos = nl_or_end(static_save);
-	ret = (char *)malloc(sizeof(char) * (split_pos + 1));
-	if (!ret)
+	split_pos = nl_position(static_save);
+	if (split_pos == 0)
+		split_pos = s_len(static_save);
+	line = (char *)malloc(sizeof(char) * (split_pos + 1));
+	if (!line)
 		return (NULL);
-	ret[split_pos] = '\0';
+	line[split_pos] = '\0';
 	split_pos--;
 	while (split_pos >= 0)
 	{
-		ret[split_pos] = static_save[split_pos];
+		line[split_pos] = static_save[split_pos];
 		split_pos--;
 	}
-	return (ret);
+	return (line);
+}
+
+char	*to_next_line(char *old_save)
+{
+	char	*new_save;
+	int		i;
+	int		k;
+
+	if (!old_save)
+		return (NULL);
+	k = 0;
+	while (old_save[k] && old_save[k] != '\n')
+		k++;
+	if (old_save[k] == '\n')
+		k++;
+	new_save = (char *)malloc(sizeof(char) * (s_len(&old_save[k]) + 1));
+	if (!new_save)
+		return (NULL);
+	i = 0;
+	while (old_save[k])
+	{
+		new_save[i] = old_save[k];
+		i++;
+		k++;
+	}
+	new_save[i] = '\0';
+	free(old_save);
+	return (new_save);
 }
