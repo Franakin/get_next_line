@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   get_next_line_utils_bonus.c                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/04/13 15:12:24 by fpurdom       #+#    #+#                 */
+/*   Updated: 2022/04/15 16:51:24 by fpurdom       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stddef.h>
 #include <stdlib.h>
 
@@ -5,6 +17,8 @@ int	nl_position(char *str)
 {
 	int	i;
 
+	if (!str)
+		return (-1);
 	i = 0;
 	while (str[i])
 	{
@@ -15,7 +29,7 @@ int	nl_position(char *str)
 	return (0);
 }
 
-size_t	s_len(char *str)
+static size_t	s_len(char *str)
 {
 	int	i;
 

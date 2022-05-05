@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   get_next_line_bonus.c                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/04/13 15:12:04 by fpurdom       #+#    #+#                 */
+/*   Updated: 2022/04/15 17:33:00 by fpurdom       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line_bonus.h"
 #include <stdlib.h>
 #include <unistd.h>
 
 char	*check_error(char *static_save, int b_read)
 {
-	if (!*static_save || b_read < 0)
+	if (static_save && (!*static_save || b_read < 0))
 	{
 		free(static_save);
 		static_save = NULL;

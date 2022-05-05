@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   get_next_line_bonus.h                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fpurdom <fpurdom@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/04/13 15:12:10 by fpurdom       #+#    #+#                 */
+/*   Updated: 2022/04/13 15:12:11 by fpurdom       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stddef.h>
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
